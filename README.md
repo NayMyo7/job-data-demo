@@ -18,9 +18,12 @@ GET job-data?jobTitle[like]=developer&salary[gt]=12000&gender=male&page=1&size=1
 | 7     | sort              | A comma-separated list of fields to sort the results by. Use the format <field name>,<asc/desc> to specify the sort direction. Multiple sort fields can be specified. |    Yes   |
 
 ### Example Request
+
 ```bash
 curl --location 'localhost:8080/job-data?jobTitle%255Blike%255D=developer&salary%255Bgt%255D=12000&gender=male&page=1&size=10&fields=jobTitle%2C%20gender%2C%20salary&sort=salary%2Cdesc&sort=jobTitle%2Casc'
 ```
+
+![Get Job Data](https://user-images.githubusercontent.com/34326757/230900756-e66aea6e-6e6f-4dae-b406-aa0b5b7de393.png)
 
 This example request searches for jobs with a job title containing the string "developer", where the salary is greater than 12000, and where the gender is male. The results are sorted by salary in descending order and then by job title in ascending order. The response includes the jobTitle, gender, and salary fields for each job, and displays 10 items per page on page number 1.
 
