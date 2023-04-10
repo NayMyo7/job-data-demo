@@ -1,17 +1,30 @@
 package com.springframework.jobdata.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.springframework.jobdata.deserializer.SalaryDeserializer;
 import com.springframework.jobdata.type.Gender;
+import com.springframework.jobdata.util.JobDataField;
+import com.springframework.jobdata.util.ReflectionUtils;
+import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
 
 /**
  * Created by Nay Myo Htet on 4/8/2023.
  */
+@Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class JobData {
+
     @JsonProperty("Timestamp")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "M/d/yyyy H:mm:ss")
     private LocalDateTime timestamp; //3/21/2016 12:58:52
@@ -29,7 +42,7 @@ public class JobData {
     private String yearsAtEmployer; //0, 1.5, <1, 10+ years, 7.5 years
 
     @JsonProperty("Years of Experience")
-    private String yearsAtExperience; //1 of employment, 0 (Just graduated), 10+ years, 2.5, 13
+    private String yearsOfExperience; //1 of employment, 0 (Just graduated), 10+ years, 2.5, 13
 
     @JsonProperty("Salary")
     @JsonDeserialize(using = SalaryDeserializer.class) // // Remove any non-numeric characters from the salary string
@@ -50,4 +63,18 @@ public class JobData {
     @JsonProperty("Additional Comments")
     private String additionalComments;
 
+    public JobData projectFields(Set<String> fields) {
+        ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());
+        Map<String, Object> map = new HashMap<>();
+
+        // Iterate over the fields and add the corresponding properties to the map
+        for (String field : fields) {
+            String property = JobDataField.FIELD_TO_PROPERTY_MAP.get(field);
+            if (property != null) {
+                map.put(property, ReflectionUtils.getFieldValue(this, field));
+            }
+        }
+
+        return objectMapper.convertValue(map, JobData.class);
+    }
 }

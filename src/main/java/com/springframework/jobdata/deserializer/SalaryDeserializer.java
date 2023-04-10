@@ -26,7 +26,6 @@ public class SalaryDeserializer extends JsonDeserializer<Integer> {
     private Integer parseSalary(String salaryString) throws NumberFormatException {
         // Remove any non-numeric characters from the salary string
         String strippedSalary = salaryString.replaceAll("[^0-9]", "");
-        // System.out.println("Original salary =>" + salaryString + "\t Stripped salary => " + strippedSalary);
         return Integer.parseInt(strippedSalary);
     }
 }
