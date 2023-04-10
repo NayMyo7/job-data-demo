@@ -2,7 +2,9 @@
 The Job Data API provides information about job listings. You can use this API to search for jobs based on job title, salary, gender, and other criteria.
 
 ##### Endpoint
-`GET job-data?jobTitle[like]=developer&salary[gt]=12000&gender=male&page=1&size=10&fields=jobTitle, gender, salary&sort=salary,desc&sort=jobTitle,asc`
+```bash
+GET job-data?jobTitle[like]=developer&salary[gt]=12000&gender=male&page=1&size=10&fields=jobTitle, gender, salary&sort=salary,desc&sort=jobTitle,asc
+```
 
 ### Query Parameters
 | No    | Parameter         | Description                                                               | Optional |
@@ -16,12 +18,15 @@ The Job Data API provides information about job listings. You can use this API t
 | 7     | sort              | A comma-separated list of fields to sort the results by. Use the format <field name>,<asc/desc> to specify the sort direction. Multiple sort fields can be specified. |    Yes   |
 
 ### Example Request
-`curl --location 'localhost:8080/job-data?jobTitle%255Blike%255D=developer&salary%255Bgt%255D=12000&gender=male&page=1&size=10&fields=jobTitle%2C%20gender%2C%20salary&sort=salary%2Cdesc&sort=jobTitle%2Casc'`
+```bash
+curl --location 'localhost:8080/job-data?jobTitle%255Blike%255D=developer&salary%255Bgt%255D=12000&gender=male&page=1&size=10&fields=jobTitle%2C%20gender%2C%20salary&sort=salary%2Cdesc&sort=jobTitle%2Casc'
+```
 
 This example request searches for jobs with a job title containing the string "developer", where the salary is greater than 12000, and where the gender is male. The results are sorted by salary in descending order and then by job title in ascending order. The response includes the jobTitle, gender, and salary fields for each job, and displays 10 items per page on page number 1.
 
 ### Example Response
-`{
+```json
+{
      "status": "success",
      "message": "Job data has been successfully retrieved.",
      "data": {
@@ -82,6 +87,7 @@ This example request searches for jobs with a job title containing the string "d
          "totalElements": 96,
          "totalPages": 10
      }
- }`
+ }
+ ```
  
  This example response shows a list of job data that matches the specified filters and pagination options. The response includes the jobTitle, gender, and salary fields for each job, sorted by salary in descending order and then by job title in ascending order.
