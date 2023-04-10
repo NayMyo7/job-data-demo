@@ -1,0 +1,62 @@
+{
+	"info": {
+		"_postman_id": "5ce1dd1d-3755-4154-be3d-4ec8fb8ba221",
+		"name": "Job Data",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4339067"
+	},
+	"item": [
+		{
+			"name": "Get Job Data",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/job-data?jobTitle%5Blike%5D=developer&salary%5Bgt%5D=12000&gender=male&page=1&size=10&fields=jobTitle, gender, salary&sort=salary,desc&sort=jobTitle,asc",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"job-data"
+					],
+					"query": [
+						{
+							"key": "jobTitle%5Blike%5D",
+							"value": "developer"
+						},
+						{
+							"key": "salary%5Bgt%5D",
+							"value": "12000"
+						},
+						{
+							"key": "gender",
+							"value": "male"
+						},
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						},
+						{
+							"key": "fields",
+							"value": "jobTitle, gender, salary"
+						},
+						{
+							"key": "sort",
+							"value": "salary,desc"
+						},
+						{
+							"key": "sort",
+							"value": "jobTitle,asc"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
